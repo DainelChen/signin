@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolor"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="0.03"
+            android:background="@color/colorAccent"
+            app:srcCompat="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我的信息"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/imageView"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/whitec"
+            android:text="编辑"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/title_tnum"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:text="工号"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editText_tnum"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+
+            android:textAlignment="viewEnd"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/show_tnum"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/editText_tnum"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/editText_tnum"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:text="未设置"
+            android:textAlignment="viewEnd" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/show_tname"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/show_tnum"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/show_tnum"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:text="未设置"
+            android:textAlignment="viewEnd" />
+
+        <EditText
+            android:id="@+id/editText_tname"
+            style="@android:style/Widget.DeviceDefault.EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingRight="10dp"
+            android:textAlignment="viewEnd"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/title_tname"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp"
+            android:text="姓名"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/show_tc"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/show_tnum"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/show_tnum"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:text="未设置"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/title_tc"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp"
+            android:text="学院"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/show_tsex"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/show_tnum"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/show_tnum"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:text="未设置"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/title_tsex"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp"
+            android:text="性别"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
