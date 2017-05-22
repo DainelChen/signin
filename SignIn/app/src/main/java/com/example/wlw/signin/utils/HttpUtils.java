@@ -14,20 +14,30 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+
+/*
+* 定值volley
+*
+* */
 public class HttpUtils extends Request<JSONObject> {
 
     private Listener<JSONObject> listener;
     private Map<String, String> params;
 
-    public HttpUtils(String url, Map<String, String> params,
-                     Listener<JSONObject> reponseListener, ErrorListener errorListener) {
+
+    public HttpUtils(String url,
+                     Map<String, String> params,
+                     Listener<JSONObject> reponseListener,
+                     ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
     }
 
-    public HttpUtils(int method, String url, Map<String, String> params,
-                     Listener<JSONObject> reponseListener, ErrorListener errorListener) {
+    public HttpUtils(int method, String url,
+                     Map<String, String> params,
+                     Listener<JSONObject> reponseListener,
+                     ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
@@ -56,7 +66,6 @@ public class HttpUtils extends Request<JSONObject> {
 
     @Override
     protected void deliverResponse(JSONObject response) {
-        // TODO Auto-generated method stub
         listener.onResponse(response);
     }
 }
