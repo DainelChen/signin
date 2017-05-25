@@ -95,6 +95,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 progressDialog.show();
                 String url = BASE_URL + "&tnumber=" + stuNum.getText().toString() + "&tpass=" + stuPas.getText().toString() + "&tuuid=" + IMEI;
+
                 JsonObjectRequest jsObjRequest = new JsonObjectRequest
                         (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
                             @Override

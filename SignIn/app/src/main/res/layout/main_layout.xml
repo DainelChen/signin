@@ -42,7 +42,7 @@
         android:background="@drawable/btu"
         android:text="我的位置"
         android:textColor="@color/white"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/worksign"

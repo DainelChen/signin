@@ -9,6 +9,7 @@ import com.example.wlw.signin.controller.ActivityController;
 import com.example.wlw.signin.controller.BaseActivity;
 import com.example.wlw.signin.teacher.LoginActivity;
 import com.example.wlw.signin.teacher.MainActivity;
+import com.tencent.bugly.Bugly;
 
 /**
  * Created by WLW on 2017/5/15.
@@ -20,6 +21,7 @@ public class startActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ActivityController.addActivity(this);
         SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
         boolean islogin = sharedPreferences.getBoolean("islogin", false);
