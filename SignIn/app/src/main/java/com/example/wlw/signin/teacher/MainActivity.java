@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,7 +61,7 @@ import butterknife.OnClick;
  * Created by WLW on 2017/5/15.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private LocationClient mLocationClient;
 
 
@@ -94,10 +95,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityController.addActivity(this);
         Bugly.init(getApplicationContext(), "9530eb2096", true);
-
-
         setContentView(R.layout.main_layout);
         ButterKnife.bind(this);
         MY_BSSID = utils.getBSSID(getBaseContext());
@@ -106,11 +104,8 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
 
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+
+
 
     }
 
@@ -304,15 +299,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityController.removeActivity(this);
-    }
-
-    public void onBackPressed() {
-        ActivityController.finshAll();
-    }
 
 
     public void dialog(String message) {
@@ -328,15 +314,7 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //点击back键finish当前activity
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                //  finish();
-                break;
-        }
-        return true;
-    }
+
 
 
     private void requestLocation() {

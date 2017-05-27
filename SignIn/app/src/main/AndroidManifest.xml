@@ -66,9 +66,8 @@
             android:name=".teacher.mycenter"
             android:launchMode="singleTop" />
         <activity
-            android:name=".teacher.myInfoActivity"
+            android:name=".teacher.InfoMation"
             android:launchMode="singleTop" />
-        <activity android:name=".teacher.change_pwdActivity" />
 
 
         <activity
@@ -76,8 +75,6 @@
             android:launchMode="singleTop" />
         <activity android:name=".mapActivity" />
         <activity android:name=".teacher.Preference" />
-
-
 
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"

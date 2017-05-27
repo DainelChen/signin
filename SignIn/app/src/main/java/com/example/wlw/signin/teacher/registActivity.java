@@ -3,6 +3,7 @@ package com.example.wlw.signin.teacher;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.example.wlw.signin.MySingleton;
 import com.example.wlw.signin.R;
 import com.example.wlw.signin.controller.ActivityController;
 import com.example.wlw.signin.controller.BaseActivity;
+import com.example.wlw.signin.utils.HttpUtils;
 import com.example.wlw.signin.utils.utils;
 
 import org.json.JSONException;
@@ -27,8 +29,12 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -51,7 +57,6 @@ public class registActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityController.addActivity(this);
         setContentView(R.layout.regist_layout);
         ButterKnife.bind(this);
         IMEI = utils.getIMEI(getBaseContext());
@@ -59,8 +64,12 @@ public class registActivity extends BaseActivity {
         progressDialog = new ProgressDialog(registActivity.this);
         progressDialog.setMessage("注册中");
         progressDialog.setCanceledOnTouchOutside(false);
+        sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
 
     }
+
+
+    private SharedPreferences sharedPreferences;
 
     @OnClick(R.id.registclick)
     public void onViewClicked() {
@@ -75,49 +84,61 @@ public class registActivity extends BaseActivity {
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
         progressDialog.show();
-        String url = BASE_URL + "&tnumber=" + snumberEdit.getText().toString() + "&tpass=" + spassEdit.getText().toString() + "&tuuid=" + IMEI;
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            int status = response.getInt("status");
-                            if (status == 200) {
-                                Intent intent = new Intent(registActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                progressDialog.dismiss();
-                            } else {
-                                String msg = response.getString("msg");
 
-                                Toast.makeText(registActivity.this, msg, Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
 
-                            Toast.makeText(registActivity.this, "错误", Toast.LENGTH_SHORT).show();
+        Map<String, String> map = new HashMap<>();
+        map.put("tnumber", snumberEdit.getText().toString());
+        map.put("tpass", spassEdit.getText().toString());
+        map.put("tuuid", IMEI);
 
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    public void onErrorResponse(VolleyError error) {
+
+        HttpUtils jsonObjectRequest = new HttpUtils(Request.Method.POST,
+                BASE_URL, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                try {
+                    int status = jsonObject.getInt("status");
+                    if (status == 200) {
+                        Intent intent = new Intent(registActivity.this, LoginActivity.class);
+                        startActivity(intent);
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("tnumber", snumberEdit.getText().toString());
+                        editor.commit();
+
 
                         progressDialog.dismiss();
-                        Toast.makeText(registActivity.this, "错误", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String msg = jsonObject.getString("msg");
 
-
+                        Toast.makeText(registActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+                    Toast.makeText(registActivity.this, "错误", Toast.LENGTH_SHORT).show();
+
                 }
-                );
-        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                progressDialog.dismiss();
+                Toast.makeText(registActivity.this, "错误", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+
     }
 
     private boolean checkInput() {
-        Log.v("length", "" + snumberEdit.getText().length());
-        Log.v("length", "" + spassEdit.getText().length());
-        if (snumberEdit.getText().length() == 10) {
-            if (spassEdit.getText().length() <= 18 && spassEdit.getText().length() >= 6) {
+
+        if (snumberEdit.getText().length() >= 5) {
+            if (spassEdit.getText().length() >= 6) {
                 return true;
             }
         }
@@ -125,11 +146,7 @@ public class registActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityController.removeActivity(this);
-    }
+
 
 }
 

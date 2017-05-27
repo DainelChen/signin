@@ -32,6 +32,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button login;
     private Button regist;
 
+    private SharedPreferences sharedPreferences;
 
     private EditText stuNum;
     private EditText stuPas;
@@ -44,7 +45,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityController.addActivity(this);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         progressDialog = new ProgressDialog(LoginActivity.this);
@@ -52,7 +52,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         progressDialog.setCanceledOnTouchOutside(false);
         login = (Button) findViewById(R.id.login);
         stuNum = (EditText) findViewById(R.id.stunum);
-        //stuNum.setText("2511150445");
+
+
+        sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+
+
+
+        stuNum.setText(sharedPreferences.getString("tnumber", "").equals("null") ? "": sharedPreferences.getString("tnumber", ""));
         stuPas = (EditText) findViewById(R.id.password);
        // stuPas.setText("2812134");
         login.setOnClickListener(this);
@@ -179,13 +185,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         ;
     };
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityController.removeActivity(this);
 
-        isFinish = true;
-    }
 
     @Override
     public void onBackPressed() {
