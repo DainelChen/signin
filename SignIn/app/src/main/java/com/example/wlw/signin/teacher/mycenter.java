@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.wlw.signin.MySingleton;
 import com.example.wlw.signin.R;
 import com.example.wlw.signin.controller.ActivityController;
+import com.example.wlw.signin.controller.BaseActivity;
 import com.example.wlw.signin.utils.HttpUtils;
 import com.example.wlw.signin.utils.utils;
 
@@ -39,7 +40,7 @@ import butterknife.OnClick;
  * Created by WLW on 2017/5/15.
  */
 
-public class mycenter extends Activity {
+public class mycenter extends BaseActivity {
 
 
     @BindView(R.id.myinfo)
@@ -173,6 +174,7 @@ public class mycenter extends Activity {
                         //editor.remove("tnumber");
                         editor.commit();
                         Intent intent = new Intent(mycenter.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         dialog.dismiss();
                     }

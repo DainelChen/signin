@@ -14,6 +14,11 @@ public class BaseActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        for ( Activity activity : ActivityController.activities){
+            Log.v("IN_STACK_MARK",""+activity.getLocalClassName());
+
+
+        }
         ActivityController.addActivity(this);
 
         Log.v("BaseActivity",getClass().getSimpleName());
@@ -23,6 +28,12 @@ public class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        for ( Activity activity : ActivityController.activities){
+            Log.v("OUT_STACK_MARK",""+activity.getLocalClassName());
+
+
+        }
         ActivityController.removeActivity(this);
+
     }
 }

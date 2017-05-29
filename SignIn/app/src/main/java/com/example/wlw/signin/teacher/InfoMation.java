@@ -188,6 +188,7 @@ public class InfoMation extends BaseActivity {
                         editor.commit();
 
                         progressDialog.dismiss();
+                        finish();
 
 
                     } else {

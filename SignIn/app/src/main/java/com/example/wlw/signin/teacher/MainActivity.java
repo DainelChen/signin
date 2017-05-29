@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -103,10 +104,18 @@ public class MainActivity extends BaseActivity {
         progressDialog.setMessage("签到中");
         progressDialog.setCanceledOnTouchOutside(false);
 
+    }
 
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) { //按下的如果是BACK，同时没有重复
+            ActivityController.finshAll();
 
+            return true;
+        }
 
+        return super.onKeyDown(keyCode, event);
     }
 
 
@@ -129,6 +138,8 @@ public class MainActivity extends BaseActivity {
             case R.id.worksign: {
 
 
+                progressDialog.show();
+
                 HttpUtils jsonObjectRequest = new HttpUtils(Request.Method.POST,
                         FIND_WAY_SIGN, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -145,7 +156,7 @@ public class MainActivity extends BaseActivity {
 
                                 tosign();
                                 //Toast.makeText(MainActivity.this, "成功", Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
+                                //progressDialog.dismiss();
 
                             } else {
                                 // Toast.makeText(MainActivity.this, "签到失败", Toast.LENGTH_SHORT).show();
@@ -194,9 +205,8 @@ public class MainActivity extends BaseActivity {
                     if (SpatialRelationUtil.isCircleContainsPoint(center, radius, my)) {
                         requestSign();
                     } else {
+                        progressDialog.dismiss();
                         dialog("您不在指定范围内");
-
-
                     }
 
 
@@ -237,11 +247,15 @@ public class MainActivity extends BaseActivity {
 
             if (MY_BSSID == null) {
                 Toast.makeText(this, "请连接指定的WIFI路由进行签到", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
                 return;
 
             }
             if (!MY_BSSID.equals(BASE_BSSID)) {
                 Toast.makeText(this, "请连接指定的WIFI路由进行签到", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
             } else {
 
                 requestSign();
@@ -272,15 +286,12 @@ public class MainActivity extends BaseActivity {
                     if (status == 200) {
                         //Toast.makeText(MainActivity.this, "成功", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
-
                         dialog("签到成功");
                     } else {
                         // Toast.makeText(MainActivity.this, "签到失败", Toast.LENGTH_SHORT).show();
                         String msg = jsonObject.getString("msg");
-
                         progressDialog.dismiss();
                         dialog(msg);
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -295,8 +306,6 @@ public class MainActivity extends BaseActivity {
             }
         });
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
-
-
     }
 
 
@@ -363,5 +372,10 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
+
+
+
+
+
 
 }
